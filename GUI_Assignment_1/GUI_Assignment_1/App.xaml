@@ -4,49 +4,6 @@
              xmlns:local="clr-namespace:GUI_Assignment_1"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="BackgroundBrush" Color="Bisque"/>
-        <Style x:Key="inputStyle" TargetType="{x:Type Control}">
-            <Setter Property="FontSize" Value="12pt" />
-            <Setter Property="FontFamily" Value="Consolas" />
-            <Setter Property="BorderThickness" Value="3" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-        </Style>
-
-        <!--BottonToolbarStyle-->
-        <Style x:Key="BottonToolbarStyle" TargetType="{x:Type Button}" >
-            <Style.Setters>
-                <Setter Property="Height" Value="auto" />
-                <Setter Property="Width" Value="32" />
-                <Setter Property="Foreground" Value="DarkBlue" />
-                <Setter Property="FontWeight" Value="ExtraBold" />
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontFamily" Value="Arial" />
-            </Style.Setters>
-            <Style.Triggers>
-                <Trigger Property="Button.IsMouseOver" Value="True">
-                    <Setter Property="Effect" >
-                        <Setter.Value>
-                            <DropShadowEffect ShadowDepth="2" />
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="JamesStyle" TargetType="{x:Type TextBox}"
-            BasedOn="{StaticResource inputStyle}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=CurrentAgent.ID}" Value="007">
-                    <Setter Property="Foreground" Value="Red"></Setter>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <DataTemplate x:Key="agentTemplate">
-            <WrapPanel>
-                <TextBlock Text="{Binding Path=ID }" Padding="5,0" Width="50" Foreground="{Binding Path=ID, Converter={StaticResource colorConvert}}"></TextBlock>
-                <TextBlock Text="{Binding Path=CodeName}" Padding="5,0" Width="100" Foreground="{Binding Path=ID, Converter={StaticResource colorConvert}}"></TextBlock>
-                <TextBlock Text="{Binding Path=Speciality}" Padding="5,0" Width="150" Foreground="{Binding Path=ID, Converter={StaticResource colorConvert}}"></TextBlock>
-                <TextBlock Text="{Binding Path=Assignment}" Padding="5,0" Foreground="{Binding Path=ID, Converter={StaticResource colorConvert}}"></TextBlock>
-            </WrapPanel>
-        </DataTemplate>
+         
     </Application.Resources>
 </Application>
