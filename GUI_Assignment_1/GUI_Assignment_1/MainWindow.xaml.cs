@@ -24,5 +24,7 @@ namespace GUI_Assignment_1
         {
             InitializeComponent();
         }
+
+       
     }
 }
