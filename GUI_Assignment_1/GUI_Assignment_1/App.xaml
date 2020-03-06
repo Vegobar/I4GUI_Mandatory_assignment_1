@@ -3,5 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GUI_Assignment_1"
              StartupUri="MainWindow.xaml">
-  
+    <Application.Resources >
+        <local:ColorConverter x:Key="colorConvert" ></local:ColorConverter>
+        <DataTemplate>
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding Path=Debitors}">
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=CurrentDebitor.Sum, Converter={StaticResource colorConvert}}">
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+        </DataTemplate>
+        </DataGrid>
+    </Application.Resources>
 </Application>

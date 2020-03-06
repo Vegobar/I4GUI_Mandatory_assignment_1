@@ -83,6 +83,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ColorConverter.cs" />
     <Compile Include="Debitor.cs" />
     <Compile Include="Debt.xaml.cs">
       <DependentUpon>Debt.xaml</DependentUpon>

@@ -26,3 +26,4 @@ C:\Users\lena-\source\repos\Vegobar\I4GUI_Mandatory_assignment_1\GUI_Assignment_
 C:\Users\lena-\source\repos\Vegobar\I4GUI_Mandatory_assignment_1\GUI_Assignment_1\GUI_Assignment_1\obj\Debug\MainWindow.g.cs
 C:\Users\lena-\source\repos\Vegobar\I4GUI_Mandatory_assignment_1\GUI_Assignment_1\GUI_Assignment_1\obj\Debug\Debt.baml
 C:\Users\lena-\source\repos\Vegobar\I4GUI_Mandatory_assignment_1\GUI_Assignment_1\GUI_Assignment_1\obj\Debug\MainWindow.baml
+C:\Users\lena-\source\repos\Vegobar\I4GUI_Mandatory_assignment_1\GUI_Assignment_1\GUI_Assignment_1\obj\Debug\App.baml
