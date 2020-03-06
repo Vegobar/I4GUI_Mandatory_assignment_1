@@ -10,6 +10,15 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
+        <DataGrid x:Name="datagridDebts"
+                  ItemsSource="{Binding Path=Debitors}"
+                  SelectedItem="{Binding Path=CurrentDebitor}"
+                  SelectedIndex="{Binding Path=CurrentIndex}"
+                  IsSynchronizedWithCurrentItem="True"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  ></DataGrid>
         <Button x:Name="Add" Content="_Add" Height="20" Width="100"  Command="{Binding Path=AddNewDebtCommand}" />
 
     </Grid>

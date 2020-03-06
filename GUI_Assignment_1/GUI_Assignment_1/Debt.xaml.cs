@@ -23,5 +23,15 @@ namespace GUI_Assignment_1
         {
             InitializeComponent();
         }
+
+        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as DebtViewModel;
+            if (vm.IsValid)
+                DialogResult = true;
+
+            else
+                MessageBox.Show("You need to enter values for name and debt value", "Missing data");
+        }
     }
 }

@@ -23,6 +23,43 @@ namespace GUI_Assignment_1
 {
     public class MainWindowViewModel : BindableBase
     {
+        private ObservableCollection<Debitor> debitors;
+
+        public MainWindowViewModel()
+        {
+            debitors = new ObservableCollection<Debitor>
+            {
+                new Debitor("Lena","2000"),
+                new Debitor("Mikkel","-5000")
+            };
+        }
+
+
+        public ObservableCollection<Debitor> Debitors
+        {
+            get { return debitors; }
+            set { SetProperty(ref debitors, value); }
+        }
+
+        Debitor _currentDebitor = null;
+
+        public Debitor CurrentDebitor
+        {
+            get { return _currentDebitor; }
+            set
+            {
+                SetProperty(ref _currentDebitor, value);
+            }
+        }
+
+        int currentIndex = 1;
+
+        public int CurrentIndex
+        {
+            get { return currentIndex; }
+            set { SetProperty(ref currentIndex, value); }
+
+        }
 
 
         ICommand _addnewCommand;
@@ -33,7 +70,10 @@ namespace GUI_Assignment_1
             {
                 return _addnewCommand ?? (_addnewCommand = new DelegateCommand(() =>
                  {
+                     var newDebitor = new Debitor();
+                     var vmD = new DebtViewModel("Adding new debt", newDebitor);
                      var dlg = new Debt();
+                     dlg.DataContext =vmD;
                      if(dlg.ShowDialog()==true)
                      {
 

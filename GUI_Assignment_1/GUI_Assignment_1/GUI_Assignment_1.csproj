@@ -87,6 +87,7 @@
     <Compile Include="Debt.xaml.cs">
       <DependentUpon>Debt.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DebtViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -120,5 +121,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
