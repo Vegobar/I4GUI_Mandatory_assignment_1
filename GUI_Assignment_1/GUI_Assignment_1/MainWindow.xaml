@@ -9,8 +9,36 @@
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
+    
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Name="mainMenu" >
+            <MenuItem Header="_File" >
+                <MenuItem Header="_New" Command="{Binding NewFileCommand}" />
+                <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" CommandParameter="{Binding ElementName=tbxFileName, Path=Text}" />
+                <MenuItem Header="_Save" Command="{Binding SaveCommand}" />
+                <MenuItem Header="Save_As" Command="{Binding SaveAsCommand}" CommandParameter="{Binding ElementName=tbxFileName,Path=Text}" />
+                <MenuItem Header="E_xit" Command="{Binding CloseAppCommand}" />
+            </MenuItem>
+        </Menu>
+        <ToolBar DockPanel.Dock="Top" Height="auto"
+                 Background="AliceBlue" >
+                 
+                 <Label Content="File Name: "
+                        Target="{Binding ElementName=tbxFileName}"
+                        FontSize="12"
+                        FontWeight="Medium"
+                        VerticalAlignment="Center"
+                        />
+            <TextBox x:Name="tbxFileName"
+                     FontSize="12"
+                     FontWeight="Medium"
+                     VerticalAlignment="Center"
+                     MinWidth="150" />
+        </ToolBar>
+        <StackPanel></StackPanel>
+    
     <Grid>
-        <DataGrid x:Name="datagridDebts"
+            <DataGrid x:Name="datagridDebts"
                   ItemsSource="{Binding Path=Debitors}"
                   SelectedItem="{Binding Path=CurrentDebitor}"
                   SelectedIndex="{Binding Path=CurrentIndex}"
@@ -19,7 +47,8 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   ></DataGrid>
-        <Button x:Name="Add" Content="_Add" Height="20" Width="100"  Command="{Binding Path=AddNewDebtCommand}" />
+            <Button x:Name="Add" Content="_Add" Height="20" Width="100"  Command="{Binding Path=AddNewDebtCommand}" />
 
-    </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

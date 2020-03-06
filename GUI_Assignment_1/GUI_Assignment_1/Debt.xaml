@@ -34,7 +34,7 @@
                      MinWidth="200"
                      Text="{Binding Path=CurrentDebt.Name}" 
                      Grid.Column="1"
-                     Style="{StaticResource JamesStyle}"
+                    
                  />
         <TextBox Margin="39.2,39,0,0" 
                      Name="tbxCodeName" 
@@ -42,7 +42,6 @@
                      HorizontalAlignment="Left" 
                      Text="{Binding Path=CurrentDebt.Sum}" 
                      Grid.Column="1"
-                     Style="{StaticResource inputStyle}"
                      Width="100"
                      />
 

@@ -15,6 +15,7 @@ namespace GUI_Assignment_1
         {
             Title = title;
             currentDebt = debt;
+            currentDebt.Date = DateTime.Now.ToShortDateString();
 
         }
 

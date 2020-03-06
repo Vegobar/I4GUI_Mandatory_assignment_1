@@ -14,14 +14,16 @@ namespace GUI_Assignment_1
 
         }
 
-        public Debitor(string dName, string dSum)
+        public Debitor(string dName, string dSum,string dDate)
         {
             _name = dName;
             _sum = dSum;
+            _date = dDate;
         }
 
          string _name;
          string _sum;
+         string _date;
 
          public string Name
         {
@@ -33,6 +35,12 @@ namespace GUI_Assignment_1
         {
             get{return _sum;}
             set{SetProperty(ref _sum, value);}
+        }
+
+        public string Date
+        {
+            get { return _date; }
+            set { SetProperty(ref _date, value); }
         }
     }
 }
