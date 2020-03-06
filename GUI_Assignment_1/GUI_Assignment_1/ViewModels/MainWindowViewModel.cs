@@ -76,7 +76,9 @@ namespace GUI_Assignment_1
                      dlg.DataContext =vmD;
                      if(dlg.ShowDialog()==true)
                      {
-
+                         Debitors.Add(newDebitor);
+                         CurrentDebitor = newDebitor;
+                         CurrentIndex = 0;
                      }
                    
 
