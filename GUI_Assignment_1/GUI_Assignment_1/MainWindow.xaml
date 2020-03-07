@@ -46,7 +46,6 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   ColumnWidth="*"
-                  ItemTemplate="{StaticResource debitorTemplate}"
                   ></DataGrid>
             <Button x:Name="Add" Content="_Add" Height="20" Width="100"  Command="{Binding Path=AddNewDebtCommand}" />
 
