@@ -50,7 +50,12 @@ namespace GUI_Assignment_1
             set { SetProperty(ref _date, value); }
         }
 
-        public string Error => throw new NotImplementedException();
+        public Debitor Clone()
+        {
+            return this.MemberwiseClone() as Debitor;
+        }
+
+        public string Error { get; }
 
         public string this[string columnName]
         {

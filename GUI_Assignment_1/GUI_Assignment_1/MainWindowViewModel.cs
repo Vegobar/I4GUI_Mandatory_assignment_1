@@ -26,13 +26,19 @@ namespace GUI_Assignment_1
         private ObservableCollection<Debitor> debitors;
         private string filename = "";
 
+        private ObservableCollection<Debitor> clonedCollection;
+
         public MainWindowViewModel()
         {
             debitors = new ObservableCollection<Debitor>
             {
-                new Debitor("Lena","2000","06/03-2020"),
-                new Debitor("Mikkel","-5000","15/10-2018")
+                new Debitor("Lena", "2000", "06/03-2020"),
+                new Debitor("Mikkel", "-5000", "15/10-2018")
             };
+
+            var clonedlist = Debitors.Select(objEntity => (Debitor) objEntity.Clone()).ToList();
+            clonedCollection = new ObservableCollection<Debitor>(clonedlist);
+
         }
 
 
@@ -47,10 +53,7 @@ namespace GUI_Assignment_1
         public Debitor CurrentDebitor
         {
             get { return _currentDebitor; }
-            set
-            {
-                SetProperty(ref _currentDebitor, value);
-            }
+            set { SetProperty(ref _currentDebitor, value); }
         }
 
         int currentIndex = 1;
@@ -70,24 +73,26 @@ namespace GUI_Assignment_1
             get
             {
                 return _addnewCommand ?? (_addnewCommand = new DelegateCommand(() =>
-                 {
-                     var newDebitor = new Debitor();
-                     var vmD = new DebtViewModel("Adding new debt", newDebitor);
-                     var dlg = new Debt();
-                     dlg.DataContext =vmD;
-                     if(dlg.ShowDialog()==true)
-                     {
-                         Debitors.Add(newDebitor);
-                         CurrentDebitor = newDebitor;
-                         CurrentIndex = 0;
-                     }
-                   
+                {
+                    var newDebitor = new Debitor();
+                    var vmD = new DebtViewModel("Adding new debt", newDebitor);
+                    var dlg = new Debt();
+                    dlg.DataContext = vmD;
+                    if (dlg.ShowDialog() == true)
+                    {
+                        Debitors.Add(newDebitor);
+                        clonedCollection.Add(newDebitor.Clone());
+                        CurrentDebitor = newDebitor;
+                        CurrentIndex = 0;
+                    }
 
-                 }));
+
+                }));
             }
         }
 
         ICommand _NewFileCommand;
+
         public ICommand NewFileCommand
         {
             get { return _NewFileCommand ?? (_NewFileCommand = new DelegateCommand(NewFileCommand_Execute)); }
@@ -95,9 +100,10 @@ namespace GUI_Assignment_1
 
         private void NewFileCommand_Execute()
         {
-            MessageBoxResult res = MessageBox.Show("Any unsaved data will be lost. Are you sure you want to initiate a new file?", "Warning",
-               MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            if(res == MessageBoxResult.Yes)
+            MessageBoxResult res = MessageBox.Show(
+                "Any unsaved data will be lost. Are you sure you want to initiate a new file?", "Warning",
+                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (res == MessageBoxResult.Yes)
             {
                 Debitors.Clear();
                 filename = "";
@@ -105,9 +111,13 @@ namespace GUI_Assignment_1
         }
 
         ICommand _OpenFileCommand;
+
         public ICommand OpenFileCommand
         {
-            get { return _OpenFileCommand ?? (_OpenFileCommand = new DelegateCommand<string>(OpenFileCommand_Execute)); }
+            get
+            {
+                return _OpenFileCommand ?? (_OpenFileCommand = new DelegateCommand<string>(OpenFileCommand_Execute));
+            }
         }
 
         private void OpenFileCommand_Execute(string argFilename)
@@ -115,7 +125,7 @@ namespace GUI_Assignment_1
             if (argFilename == "")
             {
                 MessageBox.Show("You must enter a file name in the File Name textbox!", "Unable to save file",
-            MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
             else
@@ -129,27 +139,29 @@ namespace GUI_Assignment_1
                 {
                     TextReader reader = new StreamReader(filename);
                     //Deserialize all the debitors
-                    tempDebitors = (ObservableCollection<Debitor>)serializer.Deserialize(reader);
+                    tempDebitors = (ObservableCollection<Debitor>) serializer.Deserialize(reader);
                     reader.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Unable to open file", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
                 Debitors = tempDebitors;
 
             }
         }
 
-            ICommand _SaveAsCommand;
-            public ICommand SaveAsCommand
-            {
-                get { return _SaveAsCommand ?? (_SaveAsCommand = new DelegateCommand<string>(SaveAsCommand_Execute)); }
-            }
+        ICommand _SaveAsCommand;
+
+        public ICommand SaveAsCommand
+        {
+            get { return _SaveAsCommand ?? (_SaveAsCommand = new DelegateCommand<string>(SaveAsCommand_Execute)); }
+        }
 
         private void SaveAsCommand_Execute(string argFilename)
         {
-            if(argFilename=="")
+            if (argFilename == "")
             {
                 MessageBox.Show("You must enter a file name in the File Name textbox!", "Unable to save file",
                     MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -168,8 +180,9 @@ namespace GUI_Assignment_1
         {
             get
             {
-                return _SaveCommand ?? (_SaveCommand = new DelegateCommand(SaveFileCommand_Execute, SaveFileCommand_CanExecute)
-                    .ObservesProperty(() => Debitors.Count));
+                return _SaveCommand ?? (_SaveCommand =
+                           new DelegateCommand(SaveFileCommand_Execute, SaveFileCommand_CanExecute)
+                               .ObservesProperty(() => Debitors.Count));
             }
         }
 
@@ -191,6 +204,7 @@ namespace GUI_Assignment_1
 
 
         ICommand _closeAppCommand;
+
         public ICommand CloseAppCommand
         {
             get
@@ -198,9 +212,65 @@ namespace GUI_Assignment_1
                 return _closeAppCommand ?? (_closeAppCommand = new DelegateCommand(() =>
                 {
                     App.Current.MainWindow.Close();
-                })); 
+                }));
             }
         }
 
+        private bool dirty = false;
+
+        public bool Dirty
+        {
+            get { return dirty; }
+            set
+            {
+                SetProperty(ref dirty, value);
+                RaisePropertyChanged("Title");
+            }
+        }
+
+        private ICommand _seeTotalDebtCommand;
+
+        public ICommand SeeTotalDebtCommand
+        {
+            get
+            {
+                return _seeTotalDebtCommand ?? (_seeTotalDebtCommand = new DelegateCommand(() =>
+                {
+                    var tempDebitor = CurrentDebitor.Clone();
+                    var newDebitor = new Debitor();
+                    newDebitor.Sum = "1";
+
+
+                    var vm = new TotalDebtViewModel("Add debt", tempDebitor, newDebitor)
+                    {
+                        Debitors = clonedCollection
+                    };
+
+                    var dlg = new TotalDebtView
+                    {
+                        DataContext = vm,
+                        Owner = App.Current.MainWindow
+                    };
+
+                    if (dlg.ShowDialog() == true)
+                    {
+                        tempDebitor.Sum = newDebitor.Sum;
+                        Debitors.Add(tempDebitor);
+                        clonedCollection.Add(tempDebitor);
+
+                        int result = Int32.Parse(CurrentDebitor.Sum);
+                        int result_temp = Int32.Parse(newDebitor.Sum);
+
+                        int final_result = result + result_temp;
+
+                        CurrentDebitor.Sum = final_result.ToString();
+
+                        Debitors.RemoveAt(Debitors.Count - 1);
+                        Dirty = true;
+                    }
+                }));
+            }
+
         }
     }
+}
