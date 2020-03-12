@@ -76,6 +76,7 @@ Path=(Validation.Errors)[0].ErrorContent}"/>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbxName}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbxSum}" Value="False"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="True"/>
                         </MultiDataTrigger>
