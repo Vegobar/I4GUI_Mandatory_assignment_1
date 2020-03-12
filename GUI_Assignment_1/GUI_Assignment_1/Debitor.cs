@@ -4,37 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
+using System.ComponentModel;
+using System.Collections;
+using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace GUI_Assignment_1
 {
-    public class Debitor : BindableBase 
+    public class Debitor : BindableBase, IDataErrorInfo
     {
         public Debitor()
         {
 
         }
 
-        public Debitor(string dName, string dSum,string dDate)
+        public Debitor(string dName, string dSum, string dDate)
         {
             _name = dName;
             _sum = dSum;
             _date = dDate;
         }
 
-         string _name;
-         string _sum;
-         string _date;
-
-         public string Name
+        string _name="";
+        string _sum="";
+        string _date;
+   
+        public string Name
         {
-            get{return _name;}
-            set{SetProperty(ref _name,value);}
+            get { return _name; }
+            set
+            {
+                SetProperty(ref _name, value);
+            }
         }
 
         public string Sum
         {
-            get{return _sum;}
-            set{SetProperty(ref _sum, value);}
+            get { return _sum; }
+            set { SetProperty(ref _sum, value); }
         }
 
         public string Date
@@ -42,5 +49,42 @@ namespace GUI_Assignment_1
             get { return _date; }
             set { SetProperty(ref _date, value); }
         }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                return Validate(columnName);
+            }
+        }
+
+            private string Validate(string propertyName)
+        {
+            string validationMessage = string.Empty;
+    
+
+            if (propertyName == "Name")
+            {
+                if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+
+                    validationMessage = "Invalid data. You need to enter a valid name";
+                
+            }
+
+            if(propertyName == "Sum")
+            {
+                Regex regex = new Regex (@"^(-?[1-9]+\d*([.]\d+)?)$|^(-?0[.]\d*[1-9]+)$|^0$|^0.0$");
+
+                if (!regex.IsMatch(Sum))
+                    validationMessage = "Invalid data. You need to enter a valid sum";
+
+            }
+
+            return validationMessage;
+        }
+        }
     }
-}
+
+

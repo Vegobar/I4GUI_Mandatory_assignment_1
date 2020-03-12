@@ -17,9 +17,13 @@ namespace GUI_Assignment_1
         {
             Debug.Assert(targetType == typeof(Brush));
             string money = value as string;
-            int moneyy=int.Parse(money);
+            decimal moneyy=decimal.Parse(money);
 
-            return (moneyy <= 0 ? Brushes.Red : Brushes.Black);
+            if (moneyy <= 0)
+                money = "neg";
+           
+
+            return (money == "neg" ? System.Windows.Media.Brushes.PaleVioletRed : System.Windows.Media.Brushes.LightGreen);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

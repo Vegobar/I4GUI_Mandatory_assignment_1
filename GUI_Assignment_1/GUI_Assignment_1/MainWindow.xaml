@@ -5,10 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_Assignment_1"
         mc:Ignorable="d"
-        Title="The Debt Book" Height="450" Width="800">
+        Title="The Debt Book" Height="350" Width="800">
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
+    
+    <Window.Resources>
+        <local:ColorConverter x:Key="colorConvert"></local:ColorConverter>
+    </Window.Resources>
+    
+    
+    
     <DockPanel>
         <Menu DockPanel.Dock="Top" Name="mainMenu" >
             <MenuItem Header="_File" >
@@ -37,17 +44,63 @@
         <StackPanel></StackPanel>
     
     <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
             <DataGrid x:Name="datagridDebts"
-                  ItemsSource="{Binding Path=Debitors}"
-                  SelectedItem="{Binding Path=CurrentDebitor}"
-                  SelectedIndex="{Binding Path=CurrentIndex}"
-                  IsSynchronizedWithCurrentItem="True"
-                  IsReadOnly="True"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  ColumnWidth="*"
-                  ></DataGrid>
-            <Button x:Name="Add" Content="_Add" Height="20" Width="100"  Command="{Binding Path=AddNewDebtCommand}" />
+             ItemsSource="{Binding Path = Debitors}"
+             SelectedItem="{Binding Path=CurrentDebitor}"
+             SelectedIndex="{Binding Path=CurrentIndex}"
+             IsSynchronizedWithCurrentItem="True"
+             IsReadOnly="True"
+             CanUserAddRows="False"
+             CanUserDeleteRows="False"
+             ColumnWidth="*"
+             AutoGenerateColumns="False"
+             Grid.Column="1"
+                      MaxHeight="150">
+                
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Binding="{Binding Name}"
+                        Header="Name">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Background" Value="{Binding Sum, Converter={StaticResource colorConvert}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Binding="{Binding Sum}"
+                        Header="Sum">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Background" Value="{Binding Sum, Converter={StaticResource colorConvert}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Binding="{Binding Date}"
+                        Header="Date" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Background" Value="{Binding Sum, Converter={StaticResource colorConvert}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="Add"
+                    Grid.Row="3"
+                    Content="_Add"
+                    Height="20" 
+                    Width="100" 
+                    Command="{Binding Path=AddNewDebtCommand}" />
 
         </Grid>
     </DockPanel>

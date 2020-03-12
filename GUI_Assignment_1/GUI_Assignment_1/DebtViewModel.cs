@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Commands;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Windows;
 
 namespace GUI_Assignment_1
 {
@@ -44,6 +46,7 @@ namespace GUI_Assignment_1
                     isValid = false;
                 if (string.IsNullOrWhiteSpace(CurrentDebt.Sum))
                     isValid = false;
+
                 return isValid;
                  }
             set
@@ -51,9 +54,6 @@ namespace GUI_Assignment_1
                 SetProperty(ref isValid, value);
             }
         }
-
-
-
-
     }
-}
+ }
+   
